@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
+    rel="stylesheet">
+
+  <title>Product</title>
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="css/fontawesome.css">
+  <link rel="stylesheet" href="css/templatemo-sixteen.css">
+  <link rel="stylesheet" href="css/owl.css">
+  <link rel="stylesheet" href="css/stylesheet.css">
+
+  <!-- Bootstrap core JavaScript -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- Additional Scripts -->
+  <script src="js/custom.js"></script>
+  <script src="js/owl.js"></script>
+  <script src="js/slick.js"></script>
+  <script src="js/isotope.js"></script>
+  <script src="js/accordions.js"></script>
+  <script src="js/logincheck.js"></script>
+
+</head>
+
+<body>
+  <div id="adminContainer">
+    <!-- Basic structure, no sensitive information -->
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      const token = localStorage.getItem('JWT');
+
+      if (!token) {
+        // Redirect to login if no token is present
+        window.location.href = '/login.html';
+        return;
+      }
+
+      // Request for admin-specific content or script
+      $.ajax({
+        url: 'http://localhost:8081/adminPanel', // API endpoint that serves admin content
+        headers: { 'Authorization': 'Bearer ' + token },
+        success: function(data) {
+          $('#adminContainer').html(data); // Load the content dynamically
+        },
+        error: function() {
+          console.log("idk")
+          window.location.href = '/login.html'; // Redirect if not authorized
+        }
+      });
+    });
+  </script>
+
+  <!-- [Rest of your HTML structure] -->
+</body>
+
+</html>
